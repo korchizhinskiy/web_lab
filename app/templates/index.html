@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for("static", path="/style.css") }}" rel="stylesheet">
+  </head>
+  <body>
+    {{ matrix_size }}
+    <h2>Форма для отпарвки POST запросов</h2>
+    <form method="post" action="/matrix/matrix_post"> 
+      <input name="matrix_size" placeholder="Введите размерность матрицы">
+      <button type="submit">Отправить POST запрос</button>
+    </form>
+    
+    <h2>Форма для отпарвки GET запросов</h2>
+    <form method="get" action="/matrix/matrix_get">
+      <input name="matrix_size" placeholder="Введите размерность матрицы">
+      <button type="submit">Отправить GET запрос</button>
+    </form>
+    <table>
+      {% for row in matrix %}
+      <tr>
+        {% for number in row %}
+        <td>
+          {{ number }}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    
+    
+  </body>
+</html>
