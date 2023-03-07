@@ -1,0 +1,26 @@
+version: '3.0'
+
+services:
+  database:
+    image: postgres:14.3-alpine
+    container_name: postgres_database
+    volumes:
+      - "./data/db:/var/lib/postgresql/data"
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: fastapi_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on: 
+      - database
+    command: uvicorn app.main:app --host 0.0.0.0 --reload
+    restart: always
